@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Color from 'assets/Color';
 
 export const Container = styled.button`
     border: none;
@@ -9,9 +10,9 @@ export const Container = styled.button`
     color: white;
     outline: none;
     cursor: pointer;
-    background: lightgray;
+    background: ${Color.mint[5]};
 
     &:hover {
-        background: gray;
+        background: ${Color.mint[3]};
     }
 `;

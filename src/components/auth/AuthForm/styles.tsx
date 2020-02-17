@@ -18,6 +18,7 @@ export const InputBox = styled.input`
     padding-bottom: 0.5rem;
     outline: none;
     width: 100%;
+    color: ${Color.mint[2]};
 
     ::placeholder {
         color: ${Color.mint[2]};

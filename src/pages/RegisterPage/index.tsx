@@ -2,14 +2,10 @@ import React from 'react';
 import loadable from '@loadable/component';
 
 const AuthTemplate = loadable(() => import('components/auth/AuthTemplate'));
-const AuthForm = loadable(() => import('components/auth/AuthForm'));
+const LoginForm = loadable(() => import('containers/auth/LoginForm'));
 
 const RegisterPage: React.FC = () => {
-    return (
-        <AuthTemplate>
-            <AuthForm type="register" />
-        </AuthTemplate>
-    );
+    return <AuthTemplate>{/* <LoginForm /> */}</AuthTemplate>;
 };
 
 export default RegisterPage;

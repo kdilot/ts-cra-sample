@@ -2,31 +2,47 @@ import { createAction, ActionType, createReducer } from 'typesafe-actions';
 import produce from 'immer';
 
 //  Actions Type
-export const ADD = 'test/ADD';
+export const CHANGE_FIELD = 'auth/CHANGE_FIELD';
+export const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
 //  Actions
-export const add = createAction(ADD)<object>();
+export const changeField = createAction(CHANGE_FIELD)<any>();
+export const initializeForm = createAction(INITIALIZE_FORM)<any>();
 
 const actions = {
-    add,
+    changeField,
+    initializeForm,
 };
 
 type AuthActions = ActionType<typeof actions>;
 
 interface AuthState {
-    list: Array<{ title: string; isDone: boolean }>;
+    register: object;
+    login: object;
 }
 
 // Default State
 const initialState: AuthState = {
-    list: [],
+    register: {
+        username: '',
+        password: '',
+        passwordConfirm: '',
+    },
+    login: {
+        username: '',
+        password: '',
+    },
 };
 
 const AuthReducer = createReducer<AuthState, AuthActions>(initialState, {
-    [ADD]: (state, action: any) =>
+    [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
         produce(state, draft => {
-            draft.list = state.list.concat(action.payload);
+            draft[form][key] = value;
         }),
+    [INITIALIZE_FORM]: (state, { payload: { form } }) => ({
+        ...state,
+        [form]: initializeForm[form],
+    }),
 });
 
 export default AuthReducer;

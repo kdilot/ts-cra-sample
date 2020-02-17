@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 
 interface Props {
     type: string;
+    form: any;
+    onChange: any;
+    onSubmit: any;
 }
 
 const typeMap = {
@@ -11,22 +14,26 @@ const typeMap = {
     register: '회원가입',
 };
 
-const AuthForm: React.FC<Props> = ({ type }) => {
+const AuthForm: React.FC<Props> = ({ type, form, onChange, onSubmit }) => {
     const text = typeMap[type];
     return (
         <AuthFormBlock>
             <h3>{text}</h3>
-            <form>
+            <form onSubmit={onSubmit}>
                 <InputBox
                     autoComplete="username"
                     name="username"
                     placeholder="아이디"
+                    onChange={onChange}
+                    value={form.username}
                 />
                 <InputBox
                     autoComplete="new-password"
                     name="password"
                     placeholder="비밀번호"
                     type="password"
+                    onChange={onChange}
+                    value={form.password}
                 />
                 {type === 'register' && (
                     <InputBox
@@ -34,6 +41,8 @@ const AuthForm: React.FC<Props> = ({ type }) => {
                         name="passwordConfirm"
                         placeholder="비밀번호 확인"
                         type="password"
+                        onChange={onChange}
+                        value={form.passwordConfirm}
                     />
                 )}
                 <ButtonForm fullWidth>{text}</ButtonForm>

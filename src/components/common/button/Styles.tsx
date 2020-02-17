@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Color from 'assets/Color';
 
 export const Container = styled.button`
@@ -15,4 +15,13 @@ export const Container = styled.button`
     &:hover {
         background: ${Color.mint[3]};
     }
+
+    ${(props: any) =>
+        props.fullWidth &&
+        css`
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            width: 100%;
+            font-size: 1.125rem;
+        `}
 `;

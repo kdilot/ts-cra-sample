@@ -1,32 +1,35 @@
 import React, { useEffect } from 'react';
 import loadable from '@loadable/component';
 import { useDispatch, useSelector } from 'react-redux';
-import { initializeForm, login, changeField } from 'reducers/auth';
+import { initializeForm, register, changeField } from 'reducers/auth';
 import { withRouter } from 'react-router-dom';
 
 const AuthForm = loadable(() => import('components/auth/AuthForm'));
 
-const LoginForm: React.FC<any> = ({ history }) => {
+const RegisterForm: React.FC<any> = ({ history }) => {
     const state = useSelector((state: any) => state.auth);
     const dispatch = useDispatch();
 
     const OnChange = (e: any) => {
         const { value, name } = e.target;
-        dispatch(changeField({ form: 'login', key: name, value }));
+        dispatch(changeField({ form: 'register', key: name, value }));
     };
 
     const OnSubmit = (e: Event) => {
-        const { username, password }: any = state.login;
+        const { username, password, passwordConfirm }: any = state.register;
         e.preventDefault();
-        if (!username || !password) {
+        if (!username || !password || !passwordConfirm) {
             alert('입력 값을 확인하세요.');
             return;
+        } else if (password !== passwordConfirm) {
+            alert('비밀번호가 다릅니다.');
+            return;
         }
-        dispatch(login({ username, password }));
+        dispatch(register({ username, password }));
     };
 
     useEffect(() => {
-        dispatch(initializeForm('login'));
+        dispatch(initializeForm('register'));
     }, [dispatch]);
 
     useEffect(() => {
@@ -37,12 +40,12 @@ const LoginForm: React.FC<any> = ({ history }) => {
 
     return (
         <AuthForm
-            type="login"
-            form={login}
+            type="register"
+            form={register}
             onChange={OnChange}
             onSubmit={OnSubmit}
         />
     );
 };
 
-export default withRouter(LoginForm);
+export default withRouter(RegisterForm);

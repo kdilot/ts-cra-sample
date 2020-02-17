@@ -1,6 +1,13 @@
 import React from 'react';
-import { AuthFormBlock, Footer, InputBox, ButtonForm } from './styles';
+import {
+    AuthFormBlock,
+    Footer,
+    InputBox,
+    ButtonForm,
+    ErrorForm,
+} from './styles';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 interface Props {
     type: string;
@@ -15,6 +22,7 @@ const typeMap = {
 };
 
 const AuthForm: React.FC<Props> = ({ type, form, onChange, onSubmit }) => {
+    const { auth } = useSelector((state: any) => state);
     const text = typeMap[type];
     return (
         <AuthFormBlock>
@@ -47,6 +55,7 @@ const AuthForm: React.FC<Props> = ({ type, form, onChange, onSubmit }) => {
                 )}
                 <ButtonForm fullWidth>{text}</ButtonForm>
             </form>
+            <ErrorForm>{auth.authError}</ErrorForm>
             <Footer>
                 {type === 'login' ? (
                     <Link to="/register">회원가입</Link>

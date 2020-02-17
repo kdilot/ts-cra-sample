@@ -48,3 +48,10 @@ export const Footer = styled.div`
 export const ButtonForm = styled(Button)`
     margin-top: 1rem;
 `;
+
+export const ErrorForm = styled.div`
+    color: red;
+    text-align: center;
+    padding-top: 1rem;
+    height: 20px;
+`;

@@ -1,9 +1,8 @@
 import files from 'assets/User';
-let userList = JSON.parse(localStorage.getItem('user') || '');
+let userList = JSON.parse(localStorage.getItem('user') || '{}');
 userList = userList.length > 0 ? userList : files;
 
 export const UserCheck = ({ username }) => {
-    console.log(userList);
     const user = userList.filter((f: any) => f.username === username)[0];
     return user;
 };

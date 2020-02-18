@@ -14,17 +14,22 @@ export const LOGIN = 'auth/LOGIN';
 export const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
 
+export const LOGOUT = 'auth/LOGOUT';
+export const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
+
 //  Actions
 export const changeField = createAction(CHANGE_FIELD)<any>();
 export const initializeForm = createAction(INITIALIZE_FORM)<any>();
 export const register = createAction(REGISTER)<any>();
 export const login = createAction(LOGIN)<any>();
+export const logout = createAction(LOGOUT)<any>();
 
 // Sagas
 const registerSuccess = createAction(REGISTER_SUCCESS)<any>();
 const registerFailer = createAction(REGISTER_FAILURE)<any>();
 const loginSuccess = createAction(LOGIN_SUCCESS)<any>();
 const loginFailer = createAction(LOGIN_FAILURE)<any>();
+const logoutSuccess = createAction(LOGOUT_SUCCESS)<any>();
 
 const actions = {
     changeField,
@@ -35,6 +40,8 @@ const actions = {
     login,
     loginSuccess,
     loginFailer,
+    logout,
+    logoutSuccess,
 };
 
 type AuthActions = ActionType<typeof actions>;
@@ -68,10 +75,10 @@ const AuthReducer = createReducer<AuthState, AuthActions>(initialState, {
         produce(state, draft => {
             draft[form][key] = value;
         }),
-    [INITIALIZE_FORM]: (state, { payload: { form } }) =>
+    [INITIALIZE_FORM]: (state, { payload: form }) =>
         produce(state, draft => {
             draft.authError = null;
-            draft[form] = initializeForm[form];
+            draft[form] = initialState[form];
         }),
     [REGISTER_SUCCESS]: (state, { payload: auth }) =>
         produce(state, draft => {
@@ -82,6 +89,7 @@ const AuthReducer = createReducer<AuthState, AuthActions>(initialState, {
                 'user',
                 JSON.stringify(state.user.concat(auth)),
             );
+            localStorage.setItem('hash', JSON.stringify(auth));
         }),
     [REGISTER_FAILURE]: (state, { payload: error }) =>
         produce(state, draft => {
@@ -91,10 +99,15 @@ const AuthReducer = createReducer<AuthState, AuthActions>(initialState, {
         produce(state, draft => {
             draft.authError = null;
             draft.auth = auth;
+            localStorage.setItem('hash', JSON.stringify(auth));
         }),
     [LOGIN_FAILURE]: (state, { payload: error }) =>
         produce(state, draft => {
             draft.authError = error;
+        }),
+    [LOGOUT_SUCCESS]: (state, draft) =>
+        produce(state, draft => {
+            draft.auth = null;
         }),
 });
 

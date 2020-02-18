@@ -6,6 +6,8 @@ import {
     LOGIN,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
+    LOGOUT,
+    LOGOUT_SUCCESS,
 } from 'reducers/auth';
 import { LoginCheck, UserCheck } from 'api/auth';
 
@@ -50,4 +52,16 @@ function* login(action: any) {
 
 export function* watchLogin() {
     yield takeEvery(LOGIN, login);
+}
+
+function* logout(action: any) {
+    yield localStorage.removeItem('hash');
+    yield put({
+        type: LOGOUT_SUCCESS,
+        payload: null,
+    });
+}
+
+export function* watchLogout() {
+    yield takeEvery(LOGOUT, logout);
 }

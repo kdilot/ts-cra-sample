@@ -22,7 +22,16 @@ export const Logo = styled.div`
     letter-spacing: 2px;
 `;
 
-export const Right = styled.div``;
+export const UserInfo = styled.div`
+    font-weight: 800;
+    margin-right: 1rem;
+`;
+
+export const Right = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
 
 export const Spacer = styled.div`
     height: 4rem;

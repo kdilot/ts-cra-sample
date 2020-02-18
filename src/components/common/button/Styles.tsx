@@ -24,4 +24,12 @@ export const Container = styled.button`
             width: 100%;
             font-size: 1.125rem;
         `}
+    ${(props: any) =>
+        props.black &&
+        css`
+            background: rgba(0, 0, 0, 0.7);
+            &:hover {
+                background: rgba(0, 0, 0, 0.5);
+            }
+        `}
 `;

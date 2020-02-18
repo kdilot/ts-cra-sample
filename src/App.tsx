@@ -12,7 +12,7 @@ const ErrorPage = loadable(() => import('pages/ErrorPage'));
 const App: React.FC = () => {
     return (
         <Switch>
-            <Route path={['/@username', '/']} component={PostListPage} exact />
+            <Route path={['/@:username', '/']} component={PostListPage} exact />
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
             <Route path="/write" component={WritePage} />

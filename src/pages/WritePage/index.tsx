@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { initialize, writePost } from 'reducers/write';
 
+const Header = loadable(() => import('containers/header'));
 const Responsive = loadable(() => import('components/common/Responsive'));
 const Editor = loadable(() => import('components/write/Editor'));
 const TagBox = loadable(() => import('components/write/TagBox'));
@@ -43,11 +44,14 @@ const WritePage: React.FC<any> = ({ history }) => {
     }, [post, history]);
 
     return (
-        <Responsive>
-            <Editor />
-            <TagBox />
-            <ActionButton onPublish={onPublish} onCancel={onCancel} />
-        </Responsive>
+        <>
+            <Header />
+            <Responsive>
+                <Editor />
+                <TagBox />
+                <ActionButton onPublish={onPublish} onCancel={onCancel} />
+            </Responsive>
+        </>
     );
 };
 
